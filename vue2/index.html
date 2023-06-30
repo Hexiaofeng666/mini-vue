@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>我的名字是：<span id="name"></span></p>
+    <p>年龄:<span id="age"></span></p>
+    <button onclick="addAge()">年龄++</button>
+    <input type="text" placeholder="输入名字" oninput="changeName(event)" value="5">
+    <script>
+        let person = {
+            name:'路飞',
+            age:18
+        }
+        let p = {}
+        Object.defineProperty(p,'name',{
+            get(){
+                return person.name
+            },
+            set(newValue){
+                console.log('修改了name属性为'+ newValue);
+                person.name = newValue
+                document.getElementById('name').innerText = newValue
+                document.getElementsByTagName('input')[0].value = newValue
+            }
+        })
+        Object.defineProperty(p, "age", {
+            get(){      //有人读取age时调用
+                return person.age;
+            },
+            set(value){      //有人修改age时调用
+                console.log("有人修改了age属性")
+                person.age = value
+                document.getElementById('age').innerText = value
+            }
+        });
+        // 赋初始值
+        document.getElementById('name').innerText = p.name
+        document.getElementById('age').innerText = p.age
+        document.getElementsByTagName('input')[0].value = p.name
+        function addAge() {
+            p.age++
+        }
+        function changeName(e){
+            p.name = e.target.value
+        }
+    </script>
+</body>
+</html>
